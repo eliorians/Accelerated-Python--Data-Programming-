@@ -8,7 +8,7 @@ if (bmi < 18.5):
 if (18.5 <= bmi < 25):
     status = "healthy"
 if (25 <= bmi < 30):
-    status = "overwight"
+    status = "overweight"
 if (bmi >= 30):
     status = "obese"
 
