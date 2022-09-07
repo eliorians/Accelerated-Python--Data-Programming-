@@ -1,12 +1,16 @@
-from random import random
-
+import random
 
 n = int(input("Enter n: "))
-count = 0
-pi = 0
+c = 0
 
-while (count < n):
+a = 0
+while (a < n):
+    x = random.uniform(-1, 1)
+    y = random.uniform(-1, 1)
+
+    if ((x **2 + y**2)**(1/2)) < 1:
+        c += 1
     
-    count += 1
+    a += 1
 
-print(f'After {n} trials, the approximation is pi = {pi}.')
+print(f'After {n} trials, the approximation is pi = {4*(c/n)}.')
