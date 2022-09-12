@@ -6,17 +6,15 @@ file_name = input("Enter the WAV file name: ")
 #retrieve audio
 rate, data = load(file_name)
 #save audio
-data[0] = 0
 save('edited.wav', rate, data)
 
-x = [rate]
-y = [data]
-plt.plot(x,y)
-plt.xlabel('Time (seconds)')
-plt.ylabel('Sound Pressure')
-plt.title(file_name)
-plt.show
+print(f'There are {len(data)} samples.')
+print(f'The sample rate is {rate} samples/sec.')
+print(f'The file is {len(data) / rate:.3f} seconds long.')
 
-print(f'There are {data.len()} samples.')
-print(f'The sample rate is {data.len() / rate.len()} samples/sec.')
-print(f'The file is {rate.len():.3f} seconds long.')
+x = [len(data)/rate]
+y = [data]
+plt.plot(x, y)
+plt.xlabel('Time (seconds)')
+plt.title(file_name)
+plt.show()
