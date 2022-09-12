@@ -1,8 +1,3 @@
-x = 5 
-while x > 0: 
-    y  = int(input()) 
-    if y == 25:
-        None 
-    else:
-        x -= 1 
-        print(f'x = {x}')
+
+ls = [(chr(x), y) for x in range(97,99) for y in range(3)]
+print(ls)
