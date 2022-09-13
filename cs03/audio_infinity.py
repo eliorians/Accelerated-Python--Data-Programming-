@@ -1,17 +1,20 @@
 from audio_helpers import load, save
 import matplotlib.pyplot as plt
 
-#get filename
 file_name = input("Enter the WAV file name: ")
-#retrieve audio
 rate, data = load(file_name)
-#save audio
 save('edited.wav', rate, data)
 
-print(f'There are {len(data)} samples.')
-print(f'The sample rate is {rate} samples/sec.')
-print(f'The file is {len(data) / rate:.3f} seconds long.')
+#scale the data by a big number
+data = [i * 10000 for i in data]
+#clip the range
+for i in range(0, len(data)):
+    if (data[i] > 32767):
+        data[i] = 32767
+    if (data[i] < -32768):
+        data[i] = -32768
 
+print(f'The clipped range is ({min(data)}, {max(data)}).')
 
 x = range(0, len(data))
 y = data
