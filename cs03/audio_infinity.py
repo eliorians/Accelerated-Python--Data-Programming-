@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 
 file_name = input("Enter the WAV file name: ")
 rate, data = load(file_name)
-save('edited.wav', rate, data)
 
 #scale the data by a big number
 data = [i * 10000 for i in data]
