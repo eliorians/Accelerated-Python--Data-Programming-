@@ -5,11 +5,11 @@ file_name = input("Enter the WAV file name: ")
 rate, data = load(file_name)
 save('edited.wav', rate, data)
 
-#cut number of elements in list in half - every other (making the audio high pitch w/ same play rate)
-data = data[::2]
+#duplicate each element in list, lowering the pitch (same play rate)
+data = [i for i in data for _ in (0, 1)]
 
-print(f'The sqeaky audio has {len(data)} samples.')
-print(f'The squeaky audio is {len(data) / rate:.3f} seconds long.')
+print(f'The low audio has {len(data)} samples.')
+print(f'The low audio is {len(data) / rate:.3f} seconds long.')
 
 x = range(0, len(data))
 y = data
