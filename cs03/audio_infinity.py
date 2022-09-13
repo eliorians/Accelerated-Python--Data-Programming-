@@ -14,6 +14,8 @@ for i in range(0, len(data)):
         data[i] = -32768
 
 print(f'The clipped range is ({min(data)}, {max(data)}).')
+file_name = file_name[:len(file_name)-4] + "_infinity" + file_name[len(file_name)-4:]
+save(file_name, rate, data)
 
 x = range(0, len(data))
 y = data

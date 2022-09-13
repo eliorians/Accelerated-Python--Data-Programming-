@@ -8,7 +8,7 @@ rate, data = load(file_name)
 data = data[79000:97000]
 
 print(f'The selected range is ({min(data)}, {max(data)}).')
-print(f'There selection has {len(data)} samples.')
+print(f'The selection has {len(data)} samples.')
 print(f'The selection is {len(data) / rate:.3f} seconds long.')
 print(f'The selection starts at {79000/rate:.3f} and ends at {97000/rate:.3f}.')
 
