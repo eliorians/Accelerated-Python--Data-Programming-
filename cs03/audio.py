@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 
 #get filename
 file_name = input("Enter the WAV file name: ")
-#retrieve audio file
+#retrieve audio
 rate, data = load(file_name)
-#save new audio file
+#save new audio
 save('edited.wav', rate, data)
 
 print(f'There are {len(data)} samples.')
