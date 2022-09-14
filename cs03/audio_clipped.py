@@ -18,7 +18,9 @@ file_name = file_name[:len(file_name)-4] + "_clipped" + file_name[len(file_name)
 save(file_name, rate, data)
 print(f'The clipped range is ({min(data)}, {max(data)}).')
 
-x = range(0, len(data))
+x = [0]
+for i in range(1, len(data)):
+    x.append(i/rate)
 y = data
 plt.plot(x, y)
 plt.xlabel('Time (seconds)')

@@ -13,7 +13,9 @@ print(f'The low audio is {len(data) / rate:.3f} seconds long.')
 file_name = file_name[:len(file_name)-4] + "_low" + file_name[len(file_name)-4:]
 save(file_name, rate, data)
 
-x = range(0, len(data))
+x = [0]
+for i in range(1, len(data)):
+    x.append(i/rate)
 y = data
 plt.plot(x, y)
 plt.xlabel('Time (seconds)')

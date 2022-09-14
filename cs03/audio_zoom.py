@@ -1,4 +1,3 @@
-from importlib.resources import read_text
 from audio_helpers import load, save
 import matplotlib.pyplot as plt
 
@@ -16,7 +15,9 @@ print(f'The selection starts at {79000/rate:.3f} and ends at {97000/rate:.3f}.')
 file_name = file_name[:len(file_name)-4] + "_zoom" + file_name[len(file_name)-4:]
 save(file_name, rate, data)
 
-x = range(0, len(data))
+x = []
+for i in range(79000, 97000):
+    x.append(i/rate)
 y = data
 plt.plot(x, y)
 plt.xlabel('Time (seconds)')
