@@ -1,3 +1,21 @@
+def gcd(m, n): 
+    if n == 0: 
+        return m 
+    else: 
+        return gcd(n, m % n) 
 
-ls = [(chr(x), y) for x in range(97,99) for y in range(3)]
-print(ls)
+
+def gcd2(m, n):
+ 
+    if m > n:
+        small = n
+    else:
+        small = m
+    for i in range(1, small + 1):
+        if((m % i == 0) and (n % i == 0)):
+            gcd = i
+             
+    return gcd
+ 
+
+print(gcd2(30, 20))
