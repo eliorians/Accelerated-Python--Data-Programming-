@@ -1,21 +1,9 @@
-def gcd(m, n): 
-    if n == 0: 
-        return m 
-    else: 
-        return gcd(n, m % n) 
+var = 0
 
+def test():   
+    global var
+    var = 1
+    print(f'function var = {var}')
 
-def gcd2(m, n):
- 
-    if m > n:
-        small = n
-    else:
-        small = m
-    for i in range(1, small + 1):
-        if((m % i == 0) and (n % i == 0)):
-            gcd = i
-             
-    return gcd
- 
-
-print(gcd2(30, 20))
+test()
+print(f'global var = {var}')

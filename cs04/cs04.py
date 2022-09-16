@@ -1,21 +1,20 @@
 
 def get_times(num_samples, start_time, sample_rate):
     x = []
-    for i in range(start_time, num_samples):
-        x.append(i/sample_rate)
+    for i in range(0, num_samples):
+        x.append(start_time+i/sample_rate)
     return x
 
 def scale(y, alpha):
     return [i * alpha for i in y]
 
 def clip(y):
-    new_y = []
     for i in range(0, len(y)):
         if (y[i] > 32767):
-            new_y[i] = 32767
+            y[i] = 32767
         if (y[i] < -32768):
-            new_y[i] = -32768
-    return new_y
+            y[i] = -32768
+    return y
 
 def zoom(x, y, start, stop):
     return x[start:stop], y[start:stop]
@@ -28,7 +27,6 @@ def half_pitch(y):
 
 def plot_audio(x, y, title):
     import matplotlib.pyplot as plt
-    from audio_helpers import save
 
     plt.plot(x, y)
     plt.title(title)  
