@@ -11,9 +11,9 @@ def scale(y, alpha):
 def clip(y):
     new_y = []
     for i in range(0, len(y)):
-        if (new_y[i] > 32767):
+        if (y[i] > 32767):
             new_y[i] = 32767
-        if (new_y[i] < -32768):
+        if (y[i] < -32768):
             new_y[i] = -32768
     return new_y
 
@@ -35,9 +35,6 @@ def plot_audio(x, y, title):
     plt.xlabel('Time (seconds)')
     plt.ylabel('Amplitude')
 
-    plt.savefig(title++"png")
+    filename = title + '.png'
+    plt.savefig(filename)
     return plt
-
-from audio_helpers import load
-rate, data = load('speech.wav')
-plt = plot_audio(range(len(data)), data, 'Wrong Times')
