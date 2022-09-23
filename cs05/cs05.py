@@ -1,5 +1,8 @@
+from sqlite3 import Timestamp
 import pandas as pd
 import matplotlib.pyplot as plt
+from time import time_ns
+from random import randint
 
 def file_bmi(filename):
 
@@ -43,7 +46,34 @@ def plot_signals(filename):
 
     #return
     plt.savefig(filename)
+
+
+def grade_histogram(filename):
+
+    #from csv
+    df = pd.read_csv(filename)
+    filename = filename[:len(filename)-4] + "_hist.png"
+
+    #calculations
+    x = list(df['Grades'])
+
+    #labels and style
+    plt.hist(x, bins = range(0,101, 5), facecolor = 'cyan', edgecolor = 'black', hatch = '/')
+    plt.xlabel('Grades')
+    plt.ylabel('Count')
+    plt.title(filename)
+    #diagonal hatching
+
+    #return
+    plt.savefig(filename)
     plt.show()
 
-file_bmi('my_data.csv')
-plot_signals('data2.csv')
+def time_it(a, n, x):
+    average_time = 0
+    
+    for ():
+        #start time
+        #find
+        #end time
+
+    return average_time
