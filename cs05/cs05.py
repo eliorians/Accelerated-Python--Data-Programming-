@@ -1,7 +1,6 @@
-from sqlite3 import Timestamp
 import pandas as pd
 import matplotlib.pyplot as plt
-from time import time_ns
+from time import time
 from random import randint
 
 def file_bmi(filename):
@@ -68,12 +67,13 @@ def grade_histogram(filename):
     plt.savefig(filename)
     plt.show()
 
-def time_it(a, n, x):
-    average_time = 0
-    
-    for ():
-        #start time
-        #find
-        #end time
+def time_it(a, n, value):
+    avg = 0
+    for i in range(n):
+        t0 = time()
+        for j in range(len(a)):
+            if (j == value):
+                t1 = time()
+                avg = avg + (t1-t0)
 
-    return average_time
+    return (avg / n)
