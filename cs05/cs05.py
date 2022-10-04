@@ -34,7 +34,7 @@ def plot_signals(filename):
 
     #plot x,y1 x,y2 and x, with specified styles
     plt.plot(x, y1, label = columnNames[1], color = 'green', marker = 'o', linestyle = '--', linewidth = 2)
-    plt.plot(x, y2, label = columnNames[2], color = 'cyan', marker = 'p', linestyle = ':', linewidth = 2)
+    plt.plot(x, y2, label = columnNames[2], color = 'cyan', marker = '+', linestyle = ':', linewidth = 2)
     plt.plot(x, y3, label = columnNames[3], color = 'orange', marker = 'D', linestyle = '-.', linewidth = 2)
 
     #labels
@@ -58,7 +58,7 @@ def grade_histogram(filename):
 
     #labels and style
     plt.hist(x, bins = range(0,101, 5), facecolor = 'cyan', edgecolor = 'black', hatch = '/')
-    plt.xlabel('Grades')
+    plt.xlabel('Grade')
     plt.ylabel('Count')
     plt.title(filename)
     #diagonal hatching
@@ -68,12 +68,21 @@ def grade_histogram(filename):
     plt.show()
 
 def time_it(a, n, value):
-    avg = 0
+    
+    t0 = time()
     for i in range(n):
-        t0 = time()
-        for j in range(len(a)):
-            if (j == value):
-                t1 = time()
-                avg = avg + (t1-t0)
+        value in a
+    t1 = time()
 
-    return (avg / n)
+    return (t1-t0)/n
+
+#a = [randint(1, 100000000) for _ in range(1000000)]
+#b = tuple(a)
+#c = set(a)
+#d = {ai: True for ai in a}
+#n = 100
+
+#print(time_it(a, n, -1))
+#print(time_it(b, n, -1))
+#print(time_it(c, n, -1))
+#print(time_it(d, n, -1))
