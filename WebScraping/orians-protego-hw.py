@@ -1,7 +1,8 @@
 # Eli Orians
 
 # Resources:
-#https://www.newegg.com/robots.txt
+#https://github.com/scrapy/protego
+#https://stackabuse.com/guide-to-parsing-html-with-beautifulsoup-in-python/
 
 #Links to 5 item pages
 
@@ -11,13 +12,9 @@
 ##GPU
 ##GPU Series
 ##Price
-##Chipset MAnu.
 ##Memory Size
 ##Rating
 ##Num of Ratings
-##Card Dimensions
-##Reccomended Wattage
-##Release Date
 
 
 #Additional Work to exced a B
@@ -26,28 +23,28 @@
 from bs4 import BeautifulSoup
 from protego import Protego
 import requests
+import re
 import json
 
 url = "https://www.newegg.com/p/pl?N=100007709"
-req = requests.get(url)
-soup = BeautifulSoup(req.text, "html.parser")
-
-print(soup.title)
-
-
-#-----#
+robotstxt = "https://www.newegg.com/robots.txt"
+useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+rp = Protego.parse(robotstxt)
 
 
-#scrape at least 5 item pages with at least 5 attributes
-#use find/find_all for at least 1 element
-#use select/select_all for at least 1 element
-#each item should produce one dictionary wiht attribute:value pairs
-#use a regular expression
-
-d = {}
-with open('data.jl', 'a') as fp:
-    s = json.dumps(d)
-    fp.writes(s + '\n')
+if (rp.can_fetch(url, useragent)):
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "html.parser")
+else:
+    print("Not allowed to scrape " + url)
+    exit()
 
 
 
+price = []
+prices = soup.select('.price-current')
+print(prices)
+
+#looping
+#get next link
+#set url and remake soup object
