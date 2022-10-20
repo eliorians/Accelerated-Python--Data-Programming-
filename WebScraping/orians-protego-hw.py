@@ -28,23 +28,50 @@ import json
 
 url = "https://www.newegg.com/p/pl?N=100007709"
 robotstxt = "https://www.newegg.com/robots.txt"
-useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
 rp = Protego.parse(robotstxt)
+useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
 
+#Attributes Scraped
+price = []
+shipPrice = []
+rating = []
+numRatings = []
 
-if (rp.can_fetch(url, useragent)):
+pageCount = 0
+
+#check next url
+stuff = rp.can_fetch(url, useragent)
+while (pageCount == 0):
+    pageCount = pageCount + 1
+
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "html.parser")
-else:
-    print("Not allowed to scrape " + url)
-    exit()
 
+    #get prices
+    for i in soup.select('.price-was-data'):
+        price.append(i.text)
 
+    #get shipPrice
+    for i in soup.select('.price-ship'):
+        shipPrice.append(i.text)
 
-price = []
-prices = soup.select('.price-current')
-print(prices)
+    #get rating
+    for i in soup.select('.aria-label'):
+        rating.append(i.text)
 
-#looping
-#get next link
-#set url and remake soup object
+    #get ratingNumber
+    #for i in soup.find_all('.item-rating-num'):
+        #numRatings.append(i.text)
+
+    #get next link
+
+#write to file#
+dic ={
+    "Price": price, 
+    "Shipping Price": shipPrice, 
+    "Rating": rating,
+    # "Number of Ratings": numRatings
+    }
+
+with open('Newegg Webscrape.json', 'a') as write_file:
+    json.dump(dic, write_file, indent = 4)
