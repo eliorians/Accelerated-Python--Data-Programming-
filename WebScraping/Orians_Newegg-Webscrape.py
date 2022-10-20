@@ -10,9 +10,9 @@
 #ADDITIONAL WORK
 # Used reg expression
 # Scraped more than 5 attributes
+# Scraped more than 5 pages
 # used string manipulation
 # used a mix of find_all and select
-# had to find info becasue textbook was bad
 
 import unicodedata
 from bs4 import BeautifulSoup
@@ -38,7 +38,7 @@ pageCount = 0
 
 #check next url
 #page count is limit of pages to scrape
-while (rp.can_fetch(url, useragent) and pageCount < 1):
+while (rp.can_fetch(url, useragent) and pageCount < 6):
 
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "html.parser")
@@ -55,7 +55,7 @@ while (rp.can_fetch(url, useragent) and pageCount < 1):
     #get prices
     for i in soup.find_all('li', class_='price-current'):
         i = i.text
-        i = unicodedata.normalize("NFKD", i)
+        i = unicodedata.normalize("NFKD", i)    #get rid of \xao character to a ' '
         x = i.split(' ')
         price.append(x[0])
 
@@ -76,8 +76,8 @@ while (rp.can_fetch(url, useragent) and pageCount < 1):
 
     pageCount = pageCount + 1
 
-    #get next link
-    #url = soup.select_one('')
+    #get next link (https://www.newegg.com/p/pl?N=100007709&page=#)
+    url = "https://www.newegg.com/p/pl?N=100007709&page=" + str(pageCount+1)
 
 
 #write to file
