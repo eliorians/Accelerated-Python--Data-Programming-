@@ -224,6 +224,11 @@ def get_trim(northwest, southeast):
     
     t, l = northwest
     b, r = southeast
+    
+    t = int(t)
+    l = int(l)
+    b = int(b)
+    r = int(r)
 
     tdeg, tmin, tsec = dec_to_dms(t)
     tsec = tsec + (tmin * 60)
@@ -245,20 +250,47 @@ def get_trim(northwest, southeast):
 
 #2.4
 def get_roi(center, n):
-
     
+    lat, lon = center
 
+    northwest = ((n/3600 + lat),-(n/3600 - lon))
+    southeast = (-(n/3600 - lat),(n/3600 + lon))
+    
     return northwest, southeast
 
-
 #2.5
-#def crop(im, trim):
+def crop(im, trim):
+    l, r, b, t = trim
+
+    if (l != 0):
+        im = im[ : , l:  ]
+    if (r != 0):
+        im = im[ :  , :-r]
+    if (b != 0):
+        im = im[ :-b, :  ]
+    if (t != 0):
+        im = im[ t: , :  ]
+
+    
+    return im
 
 #2.6
-#def get_extent(northwest, southeast):
+def get_extent(northwest, southeast):
+
+    top , left = northwest
+    bottom, right = southeast
+    return left, right, bottom, top
+
 
 #2.7
-#def zoom(center, n)
+def zoom(center, n):
+
+    nw, se = get_roi(center, n)
+    im = get_tile_grid_decimal(nw, se)
+    trim = get_trim(nw, se)
+    im = crop(im, trim)
+
+    return get_extent(nw, se), im
 
 
 
@@ -293,3 +325,40 @@ def get_roi(center, n):
 # print(get_trim(nw, se))
 # print("==")
 # print("1, 2, 3, 4\n")
+
+# print("Testing 2.4")
+# center = (35+3601/7200, -81-3601/7200)
+# print(get_roi(center, 1799.5))
+# print("((36.0, -82.0),(35.00027777777778, -81.00027777777777))\n")
+# center = (29.48472222222222, -122.2688888888889)
+# print(get_roi(center, 0))
+# print("((29.48472222222222, -122.2688888888889), (29.48472222222222, -122.2688888888889))")
+
+# print("Testing 2.5")
+# print("im: ")
+# im = np.arange(64).reshape((8, 8))
+# print(im)
+# print(im.shape)
+# print("\n")
+# print("im2: ")
+# im2 = crop(im, (1, 2, 3, 4))
+# print(im2)
+# print(im2.shape)
+# print("\n")
+# print("im3: ")
+# im3 = crop(im, (0, 0, 0, 0))
+# print(im3)
+# print(im3.shape)
+# print("\n")
+
+# print("Testing 2.6")
+# nw = (36, -83)
+# se = (34, -81)
+# print(get_extent(nw, se))
+# print("(-83, -81, 34, 36)")
+
+# print("Testing 2.7")
+# extent, im = zoom(center=(36.211389, -81.668611), n=100)
+# plt.imshow(im, extent=extent)
+# plt.colorbar()
+# plt.show()
