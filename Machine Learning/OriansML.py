@@ -1,7 +1,8 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier 
@@ -15,6 +16,10 @@ from sklearn.neural_network import MLPClassifier
 
 
 def main(): 
+
+    #TODO In particular, you should use one or more Pipelines and GridSearchCV to select hyperparameters.
+    #TODO For data sets 7-12, you will need to use some form of feature selection (sklearn.feature_selection) or dimensionality reduction (sklearn.decomposition).
+
     loader(1)
     loader(2)
     loader(3)
@@ -31,6 +36,7 @@ def main():
 def loader(problem):
     problem_name = f'challenge_{problem:02d}' 
 
+    #load and show training data
     train_file = f'{problem_name}.npz'
     data = np.load(train_file)
     x_train = data['x_train']
@@ -51,158 +57,166 @@ def loader(problem):
     #choose model based on problem
 
     if problem == 1:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .505
-        #model= LogisticRegression(random_state=0)      #accuracy = .49
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .5
-        model= GaussianNB()                             #accuracy = .52
-        #model= DecisionTreeClassifier()                #accuracy = .52
-        #model= RandomForestClassifier()                #accuracy = .52
-        #model= AdaBoostClassifier()                    #accuracy = .52
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .52
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .515
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .91
+        #model= LogisticRegression(random_state=0)      #accuracy = .86
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .92
+        model= GaussianNB()                             #accuracy = .94
+        #model= DecisionTreeClassifier()                #accuracy = .80
+        #model= RandomForestClassifier()                #accuracy = .89
+        #model= AdaBoostClassifier()                    #accuracy = .89
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .94
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .93
 
     elif problem == 2:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .505
-        model= LogisticRegression(random_state=0)       #accuracy = .52
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .5025
-        #model= GaussianNB()                            #accuracy = .4925
-        #model= DecisionTreeClassifier()                #accuracy = .5
-        #model= RandomForestClassifier()                #accuracy = .505
-        #model= AdaBoostClassifier()                    #accuracy = .5025
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .505
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .505
+        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
+        #model= LogisticRegression(random_state=0)       #accuracy = .86
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .85
+        #model= GaussianNB()                            #accuracy = .88
+        #model= DecisionTreeClassifier()                #accuracy = .85
+        #model= RandomForestClassifier()                #accuracy = .87
+        #model= AdaBoostClassifier()                    #accuracy = .82
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .90
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .88
 
     elif problem == 3:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .525
-        #model= LogisticRegression(random_state=0)      #accuracy = .4925
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .4975 rbf / .49 linear
-        #model= GaussianNB()                            #accuracy = .505 visual split
-        model= DecisionTreeClassifier()                 #accuracy = .51
-        #model= RandomForestClassifier()                #accuracy = .5
-        #model= AdaBoostClassifier()                    #accuracy = .5025
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .4925
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .4925
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .88
+        #model= LogisticRegression(random_state=0)      #accuracy = .88
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83
+        #model= GaussianNB()                            #accuracy = .76
+        #model= DecisionTreeClassifier()                 #accuracy = .83
+        #model= RandomForestClassifier()                #accuracy = .84
+        #model= AdaBoostClassifier()                    #accuracy = .84
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .86
+        model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .89
 
     elif problem == 4:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .4825
-        #model= LogisticRegression(random_state=0)      #accuracy = .4975
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .5025
-        #model= GaussianNB()                            #accuracy = .505
-        #model= DecisionTreeClassifier()                #accuracy = .5
-        #model= RandomForestClassifier()                #accuracy = .495
-        model= AdaBoostClassifier()                     #accuracy = .51
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .5
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .505
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .82
+        model= LogisticRegression(random_state=0)      #accuracy = .84
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83
+        #model= GaussianNB()                            #accuracy = .83
+        #model= DecisionTreeClassifier()                #accuracy = .77
+        #model= RandomForestClassifier()                #accuracy = .82
+        #model= AdaBoostClassifier()                    #accuracy = .78
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .83
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .83
 
     elif problem == 5:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .5225
-        #model= LogisticRegression(random_state=0)      #accuracy = .5125
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .5225
-        #model= GaussianNB()                            #accuracy = .52
-        #model= DecisionTreeClassifier()                #accuracy = .5
-        #model= RandomForestClassifier()                #accuracy = .515
-        model= AdaBoostClassifier()                    #accuracy = .5375
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .5125
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .515
+        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .89
+        #model= LogisticRegression(random_state=0)      #accuracy = .86
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .85
+        #model= GaussianNB()                            #accuracy = .82
+        #model= DecisionTreeClassifier()                #accuracy = .84
+        #model= RandomForestClassifier()                #accuracy = .84
+        #model= AdaBoostClassifier()                    #accuracy = .85
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .86
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .85
 
 
     elif problem == 6:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .515
-        #model= LogisticRegression(random_state=0)      #accuracy = .485
-        model= SVC(random_state=0, kernel='rbf')       #accuracy = .5325
-        #model= GaussianNB()                            #accuracy = .4875
-        #model= DecisionTreeClassifier()                #accuracy = .5125
-        #model= RandomForestClassifier()                #accuracy = .5125
-        #model= AdaBoostClassifier()                    #accuracy = .52
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .4875
-        #model= MLPClassifier(alpha=1, max_iter=2000)   #accuracy = .52
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .99
+        #model= LogisticRegression(random_state=0)      #accuracy = .60
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .77
+        #model= GaussianNB()                            #accuracy = .59
+        model= DecisionTreeClassifier()                #accuracy = 1.0
+        #model= RandomForestClassifier()                #accuracy = 1.0
+        #model= AdaBoostClassifier()                    #accuracy = .99
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .63
+        #model= MLPClassifier(alpha=1, max_iter=2000)   #accuracy = .97
 
     elif problem == 7:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .525
-        #model= LogisticRegression(random_state=0)      #accuracy = .4625
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .4875
-        #model= GaussianNB()                            #accuracy = .4925
-        model= DecisionTreeClassifier()                #accuracy = .5275
-        #model= RandomForestClassifier()                #accuracy = .525
-        #model= AdaBoostClassifier()                    #accuracy = .525
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .465
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .515
+        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .68
+        #model= LogisticRegression(random_state=0)      #accuracy = .40
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .52
+        #model= GaussianNB()                            #accuracy = .5
+        #model= DecisionTreeClassifier()                #accuracy = .65
+        #model= RandomForestClassifier()                #accuracy = .67
+        #model= AdaBoostClassifier()                    #accuracy = .61
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .48
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .50
 
     elif problem == 8:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .4925
-        model= LogisticRegression(random_state=0)      #accuracy = .505
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .48
-        #model= GaussianNB()                            #accuracy = .5025
-        #model= DecisionTreeClassifier()                #accuracy = .49
-        #model= RandomForestClassifier()                #accuracy = .4875
-        #model= AdaBoostClassifier()                    #accuracy = .49
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .495
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .4975
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .94
+        #model= LogisticRegression(random_state=0)      #accuracy = .89
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .95
+        #model= GaussianNB()                            #accuracy = .87
+        model= DecisionTreeClassifier()                #accuracy = 1.0
+        #model= RandomForestClassifier()                #accuracy = .99
+        #model= AdaBoostClassifier()                    #accuracy = 1.0
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .89
+        #model= MLPClassifier(alpha=1, max_iter=2000)   #accuracy = .96
 
     elif problem == 9:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .515
-        model= LogisticRegression(random_state=0)      #accuracy = .5575
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .5175
-        #model= GaussianNB()                            #accuracy = .53
-        #model= DecisionTreeClassifier()                #accuracy = .5125
-        #model= RandomForestClassifier()                #accuracy = .5125
-        #model= AdaBoostClassifier()                    #accuracy = .52
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .545
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .525
+        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .99
+        #model= LogisticRegression(random_state=0)      #accuracy = .90
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .97
+        #model= GaussianNB()                            #accuracy = .93
+        #model= DecisionTreeClassifier()                #accuracy = .95
+        #model= RandomForestClassifier()                #accuracy = .96
+        #model= AdaBoostClassifier()                    #accuracy = .95
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .92
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .97
 
     elif problem == 10:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .5075
-        #model= LogisticRegression(random_state=0)      #accuracy = .5025
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .5075
-        #model= GaussianNB()                            #accuracy = .495
-        #model= DecisionTreeClassifier()                #accuracy = .51
-        #model= RandomForestClassifier()                #accuracy = .5125
-        model= AdaBoostClassifier()                    #accuracy = .5125
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .5075
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .5025
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
+        model= LogisticRegression(random_state=0)      #accuracy = .90
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83
+        #model= GaussianNB()                            #accuracy = .76
+        #model= DecisionTreeClassifier()                #accuracy = .85
+        #model= RandomForestClassifier()                #accuracy = .88
+        #model= AdaBoostClassifier()                    #accuracy = .87
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .90
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .90
 
     elif problem == 11:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .51
-        #model= LogisticRegression(random_state=0)      #accuracy = .5125
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .4875
-        model= GaussianNB()                            #accuracy = .5225
-        #model= DecisionTreeClassifier()                #accuracy = .5225
-        #model= RandomForestClassifier()                #accuracy = .5125
-        #model= AdaBoostClassifier()                    #accuracy = .5075
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .5025
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .51
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
+        #model= LogisticRegression(random_state=0)      #accuracy = .91
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .87
+        #model= GaussianNB()                            #accuracy = .68
+        #model= DecisionTreeClassifier()                #accuracy = .87
+        #model= RandomForestClassifier()                #accuracy = .90
+        #model= AdaBoostClassifier()                    #accuracy = .89
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .88
+        model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .92
 
     elif problem == 12:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .51
-        #model= LogisticRegression(random_state=0)      #accuracy = .515
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .52
-        #model= GaussianNB()                            #accuracy = .4875
-        #model= DecisionTreeClassifier()                #accuracy = .5125
-        model= RandomForestClassifier()                #accuracy = .5375
-        #model= AdaBoostClassifier()                    #accuracy = .5275
+        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .89
+        #model= LogisticRegression(random_state=0)      #accuracy = .44
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .87
+        #model= GaussianNB()                            #accuracy = .49
+        #model= DecisionTreeClassifier()                #accuracy = .88
+        #model= RandomForestClassifier()                #accuracy = .9
+        #model= AdaBoostClassifier()                    #accuracy = .80
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .47
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .4725
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .47
 
     else:
-        print("Error: Select Problem 1-12")
+        print("Failed to find problem " + problem)
         quit()
-        
-    #save submission
-    model.fit(x_train, y_train)
-    y_hat = model.predict(x_test)
-    submission_file = f'{problem_name}_submission.npz'
-    np.savez(submission_file, y_test=y_hat)
+    
 
-    #testing
+    #split data
+    x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, random_state=1)
+
+
+    #fit & predict the data
+    model.fit(x_train, y_train)
+    y_hat = model.predict(x_valid)
+
+    #plot new data
     plt.clf()
-    plt.scatter(x_test[y_hat==0, 0], x_train[y_hat==0, 1], label=r'$y=0$', color='blue', marker='*')
-    plt.scatter(x_test[y_hat==1, 0], x_train[y_hat==1, 1], label=r'$y=1$', color='red', marker='+')
+    plt.scatter(x_valid[y_hat==0, 0], x_valid[y_hat==0, 1], label=r'$y=0$', color='blue', marker='*')
+    plt.scatter(x_valid[y_hat==1, 0], x_valid[y_hat==1, 1], label=r'$y=1$', color='red', marker='+')
     plt.legend()
     plt.show()
 
+    #save submission
+    submission_file = f'{problem_name}_submission.npz'
+    np.savez(submission_file, y_test=y_hat)
+    
+    #output accuracy score
     print("Problem " + str(problem))
     print(model)
-    print(accuracy_score(y_train, y_hat)) #https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html
+    print(model.score(x_valid, y_valid))
     print("\n")
 
 if __name__ == '__main__':
