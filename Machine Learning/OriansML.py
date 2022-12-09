@@ -29,20 +29,21 @@ from sklearn.neural_network import MLPClassifier
 
 def main(): 
 
-    #TODO use one or more Pipelines and GridSearchCV to select hyperparameters.
+    #? TODO use one or more Pipelines and GridSearchCV to select hyperparameters.
+    #TODO write notes in .txt
 
-    #loader(1)
-    #loader(2)
-    #loader(3)
-    #loader(4)
-    #loader(5)
-    #loader(6)
+    loader(1)
+    loader(2)
+    loader(3) 
+    loader(4)
+    loader(5)
+    loader(6)
     loader(7)
-    #loader(8)
-    # loader(9)
-    # loader(10)
-    # loader(11)
-    # loader(12)
+    loader(8)
+    loader(9)
+    loader(10)
+    loader(11)
+    loader(12)
 
 def loader(problem):
     problem_name = f'challenge_{problem:02d}' 
@@ -79,7 +80,7 @@ def loader(problem):
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .93
 
     elif problem == 2:
-        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
+        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90 w 5, 3 =.88 6=.88
         #model= LogisticRegression(random_state=0)       #accuracy = .86
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .85
         #model= GaussianNB()                            #accuracy = .88
@@ -98,12 +99,15 @@ def loader(problem):
         #model= RandomForestClassifier()                #accuracy = .84
         #model= AdaBoostClassifier()                    #accuracy = .84
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .86
-        model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .89
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .89
+
+        pipe= Pipeline(steps= [("pca", PCA()), ("classifier", LogisticRegression(random_state=0))])
+        model= GridSearchCV(pipe, param_grid={})    #accuracy = .88
 
     elif problem == 4:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .82
-        model= LogisticRegression(random_state=0)      #accuracy = .84, .84
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83, .83
+        model= LogisticRegression(random_state=0)      #accuracy = .84
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83
         #model= GaussianNB()                            #accuracy = .83
         #model= DecisionTreeClassifier()                #accuracy = .77
         #model= RandomForestClassifier()                #accuracy = .82
@@ -112,7 +116,7 @@ def loader(problem):
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .83
 
         # pipe= Pipeline(steps= [("ss", StandardScaler()), ("classifier", SVC(random_state=0, kernel='rbf'))])
-        # model= GridSearchCV(pipe, param_grid={})
+        # model= GridSearchCV(pipe, param_grid={}) accuracy= .84
 
     elif problem == 5:
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .89
@@ -125,6 +129,8 @@ def loader(problem):
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .86
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .85
 
+        #pipe= Pipeline(steps= [("pca", PCA()), ("classifier", SVC(random_state=0, kernel='rbf'))])
+        #model= GridSearchCV(pipe, param_grid={}) #.85
 
     elif problem == 6:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .99
@@ -138,7 +144,7 @@ def loader(problem):
         #model= MLPClassifier(alpha=1, max_iter=2000)   #accuracy = .97
 
     elif problem == 7:
-        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .68, pca=.68, ss= .68, both= .68
+        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .68, pca=.68, ss= .68, both= .68
         #model= LogisticRegression(random_state=0)      #accuracy = .40, .4, .4
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .52, .52, .54
         #model= GaussianNB()                            #accuracy = .5, .43
@@ -148,9 +154,9 @@ def loader(problem):
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .48, .48
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .50, .6, .5
 
-        pipe= Pipeline(steps= [("scaler", StandardScaler()), ("pca", PCA()), 
-            ("classifier", KNeighborsClassifier(n_neighbors=5))])
-        model= GridSearchCV(pipe, param_grid={})
+        # pipe= Pipeline(steps= [("scaler", StandardScaler()), ("pca", PCA()), 
+        #     ("classifier", KNeighborsClassifier(n_neighbors=5))])
+        # model= GridSearchCV(pipe, param_grid={})
 
     elif problem == 8:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .94
@@ -213,30 +219,31 @@ def loader(problem):
 
 
 
-    #split data
-    x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, random_state=1)
-
+    #split data (ONLY USED FOR TESTING ACCURACY)
+    #x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, random_state=1)
 
     #fit & predict the data
     model.fit(x_train, y_train)
-    y_hat = model.predict(x_valid)
 
-    #plot new data
-    plt.clf()
-    plt.scatter(x_valid[y_hat==0, 0], x_valid[y_hat==0, 1], label=r'$y=0$', color='blue', marker='*')
-    plt.scatter(x_valid[y_hat==1, 0], x_valid[y_hat==1, 1], label=r'$y=1$', color='red', marker='+')
-    plt.legend()
-    plt.show()
+    #y_hat = model.predict(x_valid) #for testing accuracy
+    y_hat = model.predict(x_test)   #for submission files
+
+    #plot new data 
+    # plt.clf()
+    # plt.scatter(x_valid[y_hat==0, 0], x_valid[y_hat==0, 1], label=r'$y=0$', color='blue', marker='*')
+    # plt.scatter(x_valid[y_hat==1, 0], x_valid[y_hat==1, 1], label=r'$y=1$', color='red', marker='+')
+    # plt.legend()
+    # plt.show()
 
     #save submission
     submission_file = f'{problem_name}_submission.npz'
     np.savez(submission_file, y_test=y_hat)
     
-    #output accuracy score
-    print("Problem " + str(problem))
-    print(model)
-    print(model.score(x_valid, y_valid))
-    print("\n")
+    #output accuracy score (ONLY USED FOR TESTING ACCURACY)
+    #print("Problem " + str(problem))
+    #print(model)
+    #print(model.score(x_valid, y_valid))
+    #print("\n")
     
 
 if __name__ == '__main__':
