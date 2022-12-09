@@ -1,9 +1,21 @@
 
+#Classifications
+#https://cprosenjit.medium.com/10-classification-methods-from-scikit-learn-we-should-know-40c03ab8b077
+
+#Implement Pipeline & GridSearchCV
+#https://scikit-learn.org/stable/tutorial/statistical_inference/putting_together.html
+
 import numpy as np
 import matplotlib.pyplot as plt
+
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
 
+from sklearn.decomposition import PCA #reduces the mean, use for strongly correlated data to get rid of outliers
+from sklearn.preprocessing import StandardScaler #reduces to between 0-1, useful for negative values
 
+#classifiers
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.svm import SVC
@@ -12,26 +24,25 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.neural_network import MLPClassifier
+from sklearn.neural_network import MLPClassifier 
 
 
 def main(): 
 
-    #TODO In particular, you should use one or more Pipelines and GridSearchCV to select hyperparameters.
-    #TODO For data sets 7-12, you will need to use some form of feature selection (sklearn.feature_selection) or dimensionality reduction (sklearn.decomposition).
+    #TODO use one or more Pipelines and GridSearchCV to select hyperparameters.
 
-    loader(1)
-    loader(2)
-    loader(3)
-    loader(4)
-    loader(5)
-    loader(6)
+    #loader(1)
+    #loader(2)
+    #loader(3)
+    #loader(4)
+    #loader(5)
+    #loader(6)
     loader(7)
-    loader(8)
-    loader(9)
-    loader(10)
-    loader(11)
-    loader(12)
+    #loader(8)
+    # loader(9)
+    # loader(10)
+    # loader(11)
+    # loader(12)
 
 def loader(problem):
     problem_name = f'challenge_{problem:02d}' 
@@ -91,14 +102,17 @@ def loader(problem):
 
     elif problem == 4:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .82
-        model= LogisticRegression(random_state=0)      #accuracy = .84
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83
+        model= LogisticRegression(random_state=0)      #accuracy = .84, .84
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83, .83
         #model= GaussianNB()                            #accuracy = .83
         #model= DecisionTreeClassifier()                #accuracy = .77
         #model= RandomForestClassifier()                #accuracy = .82
         #model= AdaBoostClassifier()                    #accuracy = .78
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .83
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .83
+
+        # pipe= Pipeline(steps= [("ss", StandardScaler()), ("classifier", SVC(random_state=0, kernel='rbf'))])
+        # model= GridSearchCV(pipe, param_grid={})
 
     elif problem == 5:
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .89
@@ -124,15 +138,19 @@ def loader(problem):
         #model= MLPClassifier(alpha=1, max_iter=2000)   #accuracy = .97
 
     elif problem == 7:
-        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .68
-        #model= LogisticRegression(random_state=0)      #accuracy = .40
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .52
-        #model= GaussianNB()                            #accuracy = .5
-        #model= DecisionTreeClassifier()                #accuracy = .65
-        #model= RandomForestClassifier()                #accuracy = .67
-        #model= AdaBoostClassifier()                    #accuracy = .61
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .48
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .50
+        #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .68, pca=.68, ss= .68, both= .68
+        #model= LogisticRegression(random_state=0)      #accuracy = .40, .4, .4
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .52, .52, .54
+        #model= GaussianNB()                            #accuracy = .5, .43
+        #model= DecisionTreeClassifier()                #accuracy = .65, .56
+        #model= RandomForestClassifier()                #accuracy = .67, .55
+        #model= AdaBoostClassifier()                    #accuracy = .61, .5
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .48, .48
+        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .50, .6, .5
+
+        pipe= Pipeline(steps= [("scaler", StandardScaler()), ("pca", PCA()), 
+            ("classifier", KNeighborsClassifier(n_neighbors=5))])
+        model= GridSearchCV(pipe, param_grid={})
 
     elif problem == 8:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .94
@@ -179,7 +197,7 @@ def loader(problem):
         model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .92
 
     elif problem == 12:
-        model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .89
+        model= KNeighborsClassifier(n_neighbors=3)     #accuracy = .90 at 3, .89 at 2 and .87 at 4
         #model= LogisticRegression(random_state=0)      #accuracy = .44
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .87
         #model= GaussianNB()                            #accuracy = .49
@@ -192,7 +210,8 @@ def loader(problem):
     else:
         print("Failed to find problem " + problem)
         quit()
-    
+
+
 
     #split data
     x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, random_state=1)
@@ -218,6 +237,7 @@ def loader(problem):
     print(model)
     print(model.score(x_valid, y_valid))
     print("\n")
+    
 
 if __name__ == '__main__':
     main()
