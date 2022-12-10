@@ -4,6 +4,7 @@
 
 #Implement Pipeline & GridSearchCV
 #https://scikit-learn.org/stable/tutorial/statistical_inference/putting_together.html
+#https://scikit-learn.org/stable/modules/compose.html
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -30,7 +31,6 @@ from sklearn.neural_network import MLPClassifier
 def main(): 
 
     #? TODO use one or more Pipelines and GridSearchCV to select hyperparameters.
-    #TODO write notes in .txt
 
     loader(1)
     loader(2)
