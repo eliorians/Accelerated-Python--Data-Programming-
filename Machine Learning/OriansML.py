@@ -99,10 +99,10 @@ def loader(problem):
         #model= RandomForestClassifier()                #accuracy = .84
         #model= AdaBoostClassifier()                    #accuracy = .84
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .86
-        #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .89
+        model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .89
 
-        pipe= Pipeline(steps= [("pca", PCA()), ("classifier", LogisticRegression(random_state=0))])
-        model= GridSearchCV(pipe, param_grid={})    #accuracy = .88
+        #pipe= Pipeline(steps= [("pca", PCA()), ("classifier", LogisticRegression(random_state=0))])
+        #model= GridSearchCV(pipe, param_grid={})    #accuracy = .88
 
     elif problem == 4:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .82
@@ -220,30 +220,30 @@ def loader(problem):
 
 
     #split data (ONLY USED FOR TESTING ACCURACY)
-    #x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, random_state=1)
+    x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, random_state=1)
 
     #fit & predict the data
     model.fit(x_train, y_train)
 
-    #y_hat = model.predict(x_valid) #for testing accuracy
-    y_hat = model.predict(x_test)   #for submission files
+    y_hat = model.predict(x_valid) #for testing accuracy
+    #y_hat = model.predict(x_test)   #for submission files
 
     #plot new data 
-    # plt.clf()
-    # plt.scatter(x_valid[y_hat==0, 0], x_valid[y_hat==0, 1], label=r'$y=0$', color='blue', marker='*')
-    # plt.scatter(x_valid[y_hat==1, 0], x_valid[y_hat==1, 1], label=r'$y=1$', color='red', marker='+')
-    # plt.legend()
-    # plt.show()
+    plt.clf()
+    plt.scatter(x_valid[y_hat==0, 0], x_valid[y_hat==0, 1], label=r'$y=0$', color='blue', marker='*')
+    plt.scatter(x_valid[y_hat==1, 0], x_valid[y_hat==1, 1], label=r'$y=1$', color='red', marker='+')
+    plt.legend()
+    plt.show()
 
     #save submission
-    submission_file = f'{problem_name}_submission.npz'
-    np.savez(submission_file, y_test=y_hat)
+    # submission_file = f'{problem_name}_submission.npz'
+    # np.savez(submission_file, y_test=y_hat)
     
     #output accuracy score (ONLY USED FOR TESTING ACCURACY)
-    #print("Problem " + str(problem))
-    #print(model)
-    #print(model.score(x_valid, y_valid))
-    #print("\n")
+    print("Problem " + str(problem))
+    print(model)
+    print(model.score(x_valid, y_valid))
+    print("\n")
     
 
 if __name__ == '__main__':
