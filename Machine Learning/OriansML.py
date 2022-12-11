@@ -1,4 +1,6 @@
 
+## resources ##
+
 #Classifications
 #https://cprosenjit.medium.com/10-classification-methods-from-scikit-learn-we-should-know-40c03ab8b077
 
@@ -6,13 +8,15 @@
 #https://scikit-learn.org/stable/tutorial/statistical_inference/putting_together.html
 #https://scikit-learn.org/stable/modules/compose.html
 
+# imports #
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 
+from sklearn.model_selection import train_test_split #testing accuracy
 from sklearn.decomposition import PCA #reduces the mean, use for strongly correlated data to get rid of outliers
 from sklearn.preprocessing import StandardScaler #reduces to between 0-1, useful for negative values
 
