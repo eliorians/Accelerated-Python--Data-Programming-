@@ -1,40 +1,55 @@
+
+*more details about failed cases in comments of code
+
 Problem 1:
-GaussianNB for 94%
+GaussianNB for 94% 
+some overlap
 
 Problem 2:
 KNeighborsClassifier(n_neighbors=5) for ~90%
+some overlap
 
 Problem 3:
 MLPClassifier for ~89%
+some overlap
 
 Problem 4:
 LogisticRegression for ~84%
+high overlap
 
 Problem 5:
 KNeighborsClassifier(n_neighbors= 5) for ~89%
+high overlap
 
 Problem 6:
 DecisionTreeClassifier() for ~100%
+no overlap
 
 Problem 7:
 KNeighborsClassifier(n_neighbors=5) for ~68%
+high overlap
 
 Problem 8:
 DecisionTreeClassifier() for ~100%
+no overlap
 
 Problem 9:
 KNeighborsClassifier(n_neighbors=5) for ~99%
+no overlap
 
 Problem 10:
 LogisticRegression(random_state=0) for ~90%
+some overlap
 
 Problem 11:
 MLPClassifier(alpha=1, max_iter=1000) for ~92%
+some overlap
 
 Problem 12:
 KNeighborsClassifier(n_neighbors=3) for ~90%
-
+some overlap
 
 In most cases, it seemed that OVERLAP was preventing 100% accuracy. 
 In problems 6, 8, 9 there were clear boundries.
 In problems 4, 5, 7 it was clusters that overlapped one another.
+

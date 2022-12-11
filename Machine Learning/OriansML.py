@@ -30,8 +30,6 @@ from sklearn.neural_network import MLPClassifier
 
 def main(): 
 
-    #? TODO use one or more Pipelines and GridSearchCV to select hyperparameters.
-
     loader(1)
     loader(2)
     loader(3) 
@@ -79,6 +77,9 @@ def loader(problem):
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .94
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .93
 
+        #Notes
+        # only fails in overlapping area
+
     elif problem == 2:
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90 w 5, 3 =.88 6=.88
         #model= LogisticRegression(random_state=0)       #accuracy = .86
@@ -89,6 +90,9 @@ def loader(problem):
         #model= AdaBoostClassifier()                    #accuracy = .82
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .90
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .88
+
+        #Notes
+        # 5 neighbors was the sweetspot for this, will this always be the case?
 
     elif problem == 3:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .88
@@ -102,7 +106,10 @@ def loader(problem):
         model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .89
 
         #pipe= Pipeline(steps= [("pca", PCA()), ("classifier", LogisticRegression(random_state=0))])
-        #model= GridSearchCV(pipe, param_grid={})    #accuracy = .88
+        #model= GridSearchCV(pipe, param_grid={})    #accuracy = .88 
+ 
+        #Notes
+        # decomposition did not improve accuracy
 
     elif problem == 4:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .82
@@ -118,6 +125,10 @@ def loader(problem):
         # pipe= Pipeline(steps= [("ss", StandardScaler()), ("classifier", SVC(random_state=0, kernel='rbf'))])
         # model= GridSearchCV(pipe, param_grid={}) accuracy= .84
 
+        #Notes
+        # scaling did not improve accuracy
+        # harder to predict due to overlap?
+
     elif problem == 5:
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .89
         #model= LogisticRegression(random_state=0)      #accuracy = .86
@@ -130,7 +141,12 @@ def loader(problem):
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .85
 
         #pipe= Pipeline(steps= [("pca", PCA()), ("classifier", SVC(random_state=0, kernel='rbf'))])
-        #model= GridSearchCV(pipe, param_grid={}) #.85
+        #model= GridSearchCV(pipe, param_grid={}) #accuracy= .85
+
+        #Notes
+        # decomposition did not improve accuracy
+        # harder to predict bc of overlap?
+        # similiar results in all models
 
     elif problem == 6:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .99
@@ -142,6 +158,10 @@ def loader(problem):
         #model= AdaBoostClassifier()                    #accuracy = .99
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .63
         #model= MLPClassifier(alpha=1, max_iter=2000)   #accuracy = .97
+        
+        #Notes
+        # multiple ~100%, what made this so easy to predict? little overlap?
+        # wide range of results though
 
     elif problem == 7:
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .68, pca=.68, ss= .68, both= .68
@@ -158,6 +178,9 @@ def loader(problem):
         #     ("classifier", KNeighborsClassifier(n_neighbors=5))])
         # model= GridSearchCV(pipe, param_grid={})
 
+        #Notes
+        # why such low scores for this? lots of overlap?
+
     elif problem == 8:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .94
         #model= LogisticRegression(random_state=0)      #accuracy = .89
@@ -168,6 +191,9 @@ def loader(problem):
         #model= AdaBoostClassifier()                    #accuracy = 1.0
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .89
         #model= MLPClassifier(alpha=1, max_iter=2000)   #accuracy = .96
+
+        #Notes
+        # another high scoring challenge, due to little overlap?
 
     elif problem == 9:
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .99
@@ -180,6 +206,9 @@ def loader(problem):
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .92
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .97
 
+        #Notes
+        # high scoring challenge with 5 being the ideal neighbors again
+
     elif problem == 10:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
         model= LogisticRegression(random_state=0)      #accuracy = .90
@@ -190,6 +219,9 @@ def loader(problem):
         #model= AdaBoostClassifier()                    #accuracy = .87
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .90
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .90
+
+        #Notes
+        # 
 
     elif problem == 11:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
@@ -202,6 +234,9 @@ def loader(problem):
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .88
         model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .92
 
+        #Notes
+        # changing the max iteration effected the accuracy, 1000 was most accurate
+
     elif problem == 12:
         model= KNeighborsClassifier(n_neighbors=3)     #accuracy = .90 at 3, .89 at 2 and .87 at 4
         #model= LogisticRegression(random_state=0)      #accuracy = .44
@@ -212,6 +247,9 @@ def loader(problem):
         #model= AdaBoostClassifier()                    #accuracy = .80
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .47
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .47
+
+        #Notes
+        # optimal neighbors was 3 this time, what detmines this?
 
     else:
         print("Failed to find problem " + problem)
