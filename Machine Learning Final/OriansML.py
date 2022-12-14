@@ -17,7 +17,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV
 
 from sklearn.model_selection import train_test_split #testing accuracy
-from sklearn.decomposition import PCA #reduces the mean, use for strongly correlated data to get rid of outliers
+from sklearn.decomposition import PCA #reduces the mean, use for strongly correlated data to get rid of outlier, features are uncorrelated after
 from sklearn.preprocessing import StandardScaler #reduces to between 0-1, useful for negative values
 
 #classifiers
@@ -74,11 +74,11 @@ def loader(problem):
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .91
         #model= LogisticRegression(random_state=0)      #accuracy = .86
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .92
-        model= GaussianNB()                             #accuracy = .94
+        model= GaussianNB()                             #accuracy = .94 #gaussian = normal distribution curve, naive bc assumes x and y are uncorrelated
         #model= DecisionTreeClassifier()                #accuracy = .80
         #model= RandomForestClassifier()                #accuracy = .89
         #model= AdaBoostClassifier()                    #accuracy = .89
-        #model= QuadraticDiscriminantAnalysis()         #accuracy = .94
+        #model= QuadraticDiscriminantAnalysis()         #accuracy = .94 #not naive
         #model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .93
 
         #Notes
@@ -88,7 +88,7 @@ def loader(problem):
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90 w 5, 3 =.88 6=.88
         #model= LogisticRegression(random_state=0)       #accuracy = .86
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .85
-        #model= GaussianNB()                            #accuracy = .88
+        #model= GaussianNB()                            #accuracy = .88 #
         #model= DecisionTreeClassifier()                #accuracy = .85
         #model= RandomForestClassifier()                #accuracy = .87
         #model= AdaBoostClassifier()                    #accuracy = .82
@@ -98,7 +98,7 @@ def loader(problem):
         #Notes
         # 5 neighbors was the sweetspot for this, will this always be the case?
 
-    elif problem == 3:
+    elif problem == 3: #linear discriminant analysis is how this was generated
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .88
         #model= LogisticRegression(random_state=0)      #accuracy = .88
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83
@@ -115,7 +115,7 @@ def loader(problem):
         #Notes
         # decomposition did not improve accuracy
 
-    elif problem == 4:
+    elif problem == 4: #nearest centroid would be best
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .82
         model= LogisticRegression(random_state=0)      #accuracy = .84
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .83
@@ -167,7 +167,7 @@ def loader(problem):
         # multiple ~100%, what made this so easy to predict? little overlap?
         # wide range of results though
 
-    elif problem == 7:
+    elif problem == 7:  #naive, no correlation 
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .68, pca=.68, ss= .68, both= .68
         #model= LogisticRegression(random_state=0)      #accuracy = .40, .4, .4
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .52, .52, .54
@@ -188,7 +188,7 @@ def loader(problem):
     elif problem == 8:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .94
         #model= LogisticRegression(random_state=0)      #accuracy = .89
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .95
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .95 #hard to get right angle
         #model= GaussianNB()                            #accuracy = .87
         model= DecisionTreeClassifier()                #accuracy = 1.0
         #model= RandomForestClassifier()                #accuracy = .99
@@ -202,7 +202,7 @@ def loader(problem):
     elif problem == 9:
         model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .99
         #model= LogisticRegression(random_state=0)      #accuracy = .90
-        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .97
+        #model= SVC(random_state=0, kernel='rbf')       #accuracy = .97 
         #model= GaussianNB()                            #accuracy = .93
         #model= DecisionTreeClassifier()                #accuracy = .95
         #model= RandomForestClassifier()                #accuracy = .96
@@ -212,6 +212,7 @@ def loader(problem):
 
         #Notes
         # high scoring challenge with 5 being the ideal neighbors again
+        # the angle throws off decision tree drawing straight lines
 
     elif problem == 10:
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
@@ -231,12 +232,12 @@ def loader(problem):
         #model= KNeighborsClassifier(n_neighbors=5)     #accuracy = .90
         #model= LogisticRegression(random_state=0)      #accuracy = .91
         #model= SVC(random_state=0, kernel='rbf')       #accuracy = .87
-        #model= GaussianNB()                            #accuracy = .68
+        #model= GaussianNB()                            #accuracy = .68 #thrown off by the 2 blobs
         #model= DecisionTreeClassifier()                #accuracy = .87
         #model= RandomForestClassifier()                #accuracy = .90
         #model= AdaBoostClassifier()                    #accuracy = .89
         #model= QuadraticDiscriminantAnalysis()         #accuracy = .88
-        model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .92
+        model= MLPClassifier(alpha=1, max_iter=1000)   #accuracy = .92 #max_iter is number of lines, picked randomly
 
         #Notes
         # changing the max iteration effected the accuracy, 1000 was most accurate
