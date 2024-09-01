@@ -1,0 +1,1 @@
+Data programming class to build on the fundamentals of python librareis such as numpy and pandas, and eventually perform web-scraping and work with Scikit-learn to start the basics of machine learning.
